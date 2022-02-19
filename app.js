@@ -1,5 +1,43 @@
 'use strict'
+
+const modalOverlay = document.querySelector('.players-name-modal-overlay')
+const playerOneNameInput = document.getElementById('player-one-name-input')
+const playerTwoNameInput = document.getElementById('player-two-name-input')
+const playerOneName = document.querySelector('.player-one-name')
+const playerTwoName = document.querySelector('.player-two-name')
 const boxes = document.querySelectorAll('.box')
+
+window.onload = function () {
+	playerOneNameInput.focus()
+}
+
+playerOneNameInput.addEventListener('keyup', (e) => {
+	const playerOneNameValue = playerOneNameInput.value
+	if (!playerOneNameValue) {
+		alert('please enter a name')
+		return
+	}
+
+	if (e.key === 'Enter') {
+		playerOneName.innerText = `Player one: ${playerOneNameValue}`
+		e.target.parentElement.classList.remove('active')
+		playerTwoNameInput.parentElement.classList.add('active')
+		playerTwoNameInput.focus()
+	}
+})
+
+playerTwoNameInput.addEventListener('keyup', (e) => {
+	const playerTwoNameValue = playerTwoNameInput.value
+	if (!playerTwoNameValue) {
+		alert('please enter a name')
+		return
+	}
+
+	if (e.key === 'Enter' && playerTwoNameValue) {
+		playerTwoName.innerText = `Player two: ${playerTwoNameValue}`
+		modalOverlay.classList.add('display-none')
+	}
+})
 
 const game = {
 	playerOneScore: {
